@@ -19,6 +19,7 @@ public class Groupe {
 
 	public void setSujetAffecté(Sujet sujetAffecté) {
 		this.sujetAffecté = sujetAffecté;
+		sujetAffecté.setGroupeAffecté(this);
 	}
 
 	public String getNom() {

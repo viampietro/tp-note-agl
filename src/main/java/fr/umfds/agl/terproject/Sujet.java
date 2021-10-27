@@ -4,9 +4,9 @@ public class Sujet {
 	private Groupe groupeAffecté;
 	private String idSujet;
 	
-	private void setGroupeAffecté(Groupe g) {
-		groupeAffecté=g;
-		if (g!=null &&g.getSujetAffecté()!=this) {
+	public void setGroupeAffecté(Groupe g) {
+		groupeAffecté = g;
+		if (g != null && g.getSujetAffecté() != this) {
 			
 		}
 	}
