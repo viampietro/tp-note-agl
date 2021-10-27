@@ -1,10 +1,14 @@
 package fr.umfds.agl.terproject;
 
+import java.util.HashMap;
+
 public class Groupe {
+	
 	private Sujet sujetAffecté;
 	private String nom;
 	private String idGroupe;
-
+	private HashMap<String, Integer> choixSujets;
+	
 	public String getIdGroupe() {
 		return idGroupe;
 	}
@@ -28,6 +32,14 @@ public class Groupe {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	
+	public HashMap<String, Integer> getChoixSujets() {
+		return choixSujets;
+	}
+	
+	public void setChoixSujets(HashMap<String, Integer> choixS) {
+		this.choixSujets = choixS;
 	}
 
 	public Groupe(String nom) {

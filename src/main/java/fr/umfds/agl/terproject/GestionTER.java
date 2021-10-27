@@ -2,6 +2,7 @@ package fr.umfds.agl.terproject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,9 +15,11 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 public class GestionTER {
 	private static GestionTER instance;
-	private HashMap<String,Groupe> groupes=new HashMap();
+	private HashMap<String,Groupe> groupes = new HashMap();
 	private ObjectMapper mapper = new ObjectMapper();
-	private HashMap<String, Sujet> sujets=new HashMap<String, Sujet>();
+	private HashMap<String, Sujet> sujets = new HashMap<String, Sujet>();
+	private Hongrois gestionnaireAffectation;
+	
 	
 	private GestionTER() {
 		if (instance==null) {
@@ -37,6 +40,36 @@ public class GestionTER {
 
 	public Sujet getSujet(String idSujet) {
 		return sujets.get(idSujet);
+	}
+	
+	public void setHongrois(Hongrois h) {
+		gestionnaireAffectation = h;
+	}
+	
+	public void affectation(int passe) {
+		
+		gestionnaireAffectation.setHauteur(groupes.size());
+		gestionnaireAffectation.setLargeur(sujets.size());
+		
+		List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+		List<Integer> choices = new ArrayList<Integer>();
+		
+		for (Groupe g : groupes.values()) {
+			for (Sujet s : sujets.values()) {
+				if (g.getChoixSujets().containsKey(s.getIdSujet())) 
+					choices.add(g.getChoixSujets().get(s.getIdSujet()));
+				else choices.add(0);
+			}
+		}
+		
+		gestionnaireAffectation.setAdjacenceList(adjList);
+		for (List<Integer> coupleGrSujet : gestionnaireAffectation.affectation(passe)) {
+			Groupe g = groupes.get(coupleGrSujet.get(0).toString());
+			Sujet s = sujets.get(coupleGrSujet.get(1).toString());
+			
+			g.setSujetAffecté(s);
+		}
+		
 	}
 	
 	private void initMapper() {
